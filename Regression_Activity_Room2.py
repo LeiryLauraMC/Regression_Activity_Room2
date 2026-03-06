@@ -312,8 +312,7 @@ if "California" in page:
                         title="Correlation Matrix — California Housing")
         apply_layout(fig)
         st.plotly_chart(fig, use_container_width=True)
-    answer("MedInc (median income) shows the strongest positive linear correlation with MedHouseVal (r ≈ 0.69). "
-           "Geographic coordinates also show moderate correlations, reflecting California's coastal price premiums.")
+    answer("Encontramos a simple vista que las variables que tienen una la relación lineal más fuerte son \"MedHouseVal\" y \"MedInc\" con un coeficiente de 0.688, se convierten en el predictor más importante, considerandose una correlación en la escala moderada-fuerte, lo que se puede interpretar que a mayor ingreso mediano de la zona, mayor es el valor de vivienda. El resto de variables son débiles (&lt;0.16), lo que sugiere que individualemente no explican el precio de la viviendas, pero en conjunto pueden aportar al modelo, pero en general la mayoría tiene correlaciones tan bajas que su contribución lineal individual es mínima.")
 
     # Q2 — Distribution with bin slider and box plot toggle
     st.markdown('<div class="card" style="margin-top:1.2rem"><p class="card-title">Q2 — Distribution of MedHouseVal</p></div>', unsafe_allow_html=True)
@@ -334,9 +333,7 @@ if "California" in page:
                            title="Distribution of Median House Value")
         apply_layout(fig)
     st.plotly_chart(fig, use_container_width=True)
-    answer("The distribution is right-skewed with an unusual spike at ~5.0 ($500k). This is a known census "
-           "artifact: values were capped at $500,000, creating an artificial concentration at the boundary "
-           "that can affect model accuracy for high-value properties.")
+    answer("Se observa un sesgo positivo (right-skewed) con una notable concentración de observaciones hacia la izquierda y valores altos en la cola derecha, además de una anomalía con un pico extremadamente alto (spike). Observamos que los precios de las casas en California se concentran entre 100 y 200k con alta frecuencia y entre más costosas esa frecuencia disminuye, sin embargo el pico a la derecha indica que las casas más costosas tienen una alta frecuencia, debido a que los datos tenían un rango entre 0-k y 500-k, deduciendo que el valor extremo observado a la derecha se debe a la agrupación de las casas con precios mayores a 500-k.")
 
     # Split
     step(3, "Split the Data")
@@ -383,9 +380,7 @@ if "California" in page:
     _, p1 = mods1[sel1]
     st.plotly_chart(actual_vs_predicted(yte, p1, sel1, "#6366f1"), use_container_width=True)
     b1 = res1.iloc[0]
-    answer(f"Random Forest achieves the best result with R² ≈ {b1['R²']} and RMSE ≈ {b1['RMSE']}. "
-           "Averaging 100 independent trees over random data and feature subsets dramatically reduces "
-           "variance, yielding stable predictions without the sequential sensitivity of Gradient Boosting.")
+    answer(f"Teniendo en cuenta los resultados de la tabla comparativa mostrada, se puede observar que el modelo Random Forest obtiene el mejor rendimiento con un RMSE de {b1['RMSE']} y un R² de {b1['R²']}, lo que significa que sus predicciones se desvían en promedio ~$50,530 USD del valor real y explica el 80.5% de la variabilidad en los precios de vivienda. Su ventaja frente al Decision Tree radica en que el ensamble de 100 árboles entrenados sobre submuestras aleatorias reduce la varianza y el sobreajuste que sufre un árbol individual, promediando sus predicciones para obtener estimaciones más estables. Aunque Gradient Boosting queda muy cerca, su estrategia secuencial de corrección de residuos con los hiperparámetros utilizados no superó la capacidad de generalización del ensamble paralelo de Random Forest. El modelo con peor desempeño fue Decision Tree, cuyo R² de apenas 68% evidencia que un solo árbol es muy limitado en su predicción, es decir, no captura adecuadamente las relaciones presentes en el dataset de California Housing.")
 
     # Feature Importance
     step(6, "Feature Importances")
@@ -396,9 +391,7 @@ if "California" in page:
                                          ["#c7d2fe","#6366f1","#3730a3"])
     st.plotly_chart(fig, use_container_width=True)
     t3 = imp1.head(3)
-    answer(f"Top 3 features: {t3.index[0]} ({t3.iloc[0]:.3f}), {t3.index[1]} ({t3.iloc[1]:.3f}), "
-           f"{t3.index[2]} ({t3.iloc[2]:.3f}). MedInc dominates — wealthier block groups sustain higher "
-           "property values. Geographic coordinates capture California's coastal and regional price premiums.")
+    answer(f"Las tres características más importantes encontradas para predecir los precios de vivienda: 1. ingreso de las familias ({t3.index[0]}), 2. cantidad de ocupantes de la casa ({t3.index[1]}), y 3. la ubicación geográfica ({t3.index[2]}). Consideramos que las características 1 y 3 tienen bastante sentido, ya que indican 1. acceso económico y 3. el valor de la zona residencial, sin embargo la característica 2 no la consideramos tan significativa como las otras.")
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -466,9 +459,7 @@ elif "Concrete" in page:
                         title="Correlation Matrix — Concrete")
         apply_layout(fig)
         st.plotly_chart(fig, use_container_width=True)
-    answer("Cement shows the strongest positive correlation with Strength. Water has the strongest "
-           "negative correlation: excess water raises the water-cement ratio and reduces mechanical "
-           "strength. Age also correlates positively — concrete keeps gaining strength through hydration.")
+    answer("Al analizar la matriz de correlación del dataset de resistencia del concreto, se identifica que el \"Cement\" es el ingrediente con la correlación positiva más fuerte respecto a la variable objetivo Strength, con un coeficiente aproximado del 50%, lo cual tiene pleno sentido desde el punto de vista de ingeniería civil, ya que el cemento es el principal agente aglutinante que confiere resistencia mecánica a la mezcla. En segundo lugar aparecen el Superplasticizer (~0.37) y la variable Age (~0.33), ambos con correlaciones positivas moderadas. Por el lado negativo, el Agua (Water) presenta la correlación negativa más fuerte con la resistencia (~-0.29), coherente con el principio de que una mayor relación agua/cemento debilita la estructura interna del material al generar mayor porosidad.")
 
     # Q2 — Scatter with color selector and age filter
     st.markdown('<div class="card" style="margin-top:1.2rem"><p class="card-title">Q2 — Cement vs Strength (interactive scatter)</p></div>', unsafe_allow_html=True)
@@ -485,9 +476,7 @@ elif "Concrete" in page:
                      title=f"Cement vs Strength — colored by {color_by2}")
     apply_layout(fig)
     st.plotly_chart(fig, use_container_width=True)
-    answer("A clear positive trend between cement and strength is visible. Older samples (warmer colors) "
-           "appear higher for any given cement level, confirming that curing age is an independent "
-           "predictor of strength — even low-cement mixtures can reach high strengths with enough time.")
+    answer("En el diagrama de dispersión se observa una tendencia positiva clara entre la cantidad de cemento y la resistencia a la compresión. Al incorporar la variable Age mediante el gradiente de color, se aprecia que los puntos de tonalidades más claras (amarillos), que representan concretos con mayor tiempo de curado, tienden a concentrarse en las zonas de mayor resistencia, mientras que los puntos más oscuros, correspondientes a concretos jóvenes, se ubican predominantemente en la mitad inferior. Esto confirma que el concreto más antiguo suele ser más resistente, coherente con el proceso de hidratación del cemento que continúa durante semanas e incluso meses, fortaleciendo progresivamente la estructura interna del material. En resumen, la resistencia depende de la combinación conjunta de cemento y tiempo de curado.")
 
     # Split
     step(3, "Split the Data")
@@ -534,10 +523,7 @@ elif "Concrete" in page:
     _, p2 = mods2[sel2]
     st.plotly_chart(actual_vs_predicted(y2te, p2, sel2, "#8b5cf6"), use_container_width=True)
     b2 = res2.iloc[0]
-    answer(f"Gradient Boosting leads with R² ≈ {b2['R²']} and RMSE ≈ {b2['RMSE']} MPa. "
-           "Sequential error-correction is particularly effective for concrete data, where non-linear "
-           "interactions between ingredients (especially the water-cement ratio) require highly adaptive "
-           "splits that a parallel ensemble addresses less precisely.")
+    answer(f"Según los resultados de la tabla comparativa, el modelo Gradient Boosting obtiene el mejor rendimiento con un RMSE de {b2['RMSE']} y un R² de {b2['R²']}, lo que indica que sus predicciones se desvían en promedio apenas ~4.93 MPa del valor real de resistencia y logra explicar el 90.6% de la variabilidad en la resistencia a la compresión del concreto. Este resultado se debe a que Gradient Boosting construye árboles de forma secuencial, donde cada nuevo árbol se enfoca en corregir los errores residuales del anterior, capturando con mayor precisión las relaciones no lineales entre los ingredientes. El modelo Random Forest ocupa el segundo lugar con un desempeño sólido, aunque al promediar predicciones independientes no alcanza la misma capacidad de ajuste fino. El Decision Tree muestra el peor rendimiento, con un error ~47% mayor que Gradient Boosting, evidenciando que un solo árbol con profundidad 8 no es suficiente para modelar la complejidad de las interacciones entre los componentes del concreto.")
 
     # Feature Importance
     step(6, "Feature Importances")
@@ -548,9 +534,7 @@ elif "Concrete" in page:
                                          ["#ddd6fe","#8b5cf6","#4c1d95"])
     st.plotly_chart(fig, use_container_width=True)
     t3b = imp2.head(3)
-    answer(f"Top 3 features: {t3b.index[0]} ({t3b.iloc[0]:.3f}), {t3b.index[1]} ({t3b.iloc[1]:.3f}), "
-           f"{t3b.index[2]} ({t3b.iloc[2]:.3f}). Age ranks among the top — arguably more important than "
-           "Cement itself, reflecting continuous hydration that strengthens concrete over time.")
+    answer(f"Según el gráfico de importancia de variables del modelo Gradient Boosting (el mejor modelo para este problema), los tres ingredientes más influyentes para predecir la resistencia del concreto son: Age (Edad) con una importancia de ~0.36, lo que confirma que el tiempo de curado es el factor más determinante en el fortalecimiento del concreto debido al proceso continuo de hidratación; Cement (Cemento) con ~0.30, coherente con su rol como principal agente aglutinante; y Water (Agua) con ~0.11, cuya influencia se explica por el efecto negativo que tiene el exceso de agua sobre la porosidad. Estos tres factores concentran aproximadamente el 78% de la importancia total del modelo, lo cual es completamente coherente con los fundamentos de la tecnología del concreto y con los patrones observados en el análisis de correlación y el scatter plot.")
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -657,10 +641,7 @@ elif "Bike" in page:
                              "xaxis": dict(tickmode="linear", dtick=1, gridcolor="#e8edf8"),
                              "coloraxis_showscale": False})
         st.plotly_chart(fig, use_container_width=True)
-    answer("A clear bimodal pattern: peak demand at 17:00–18:00 (~461 avg rentals) and 08:00 (~359), "
-           "coinciding with commuting hours. Lowest demand is at 03:00–04:00 (~6–12 rentals). "
-           "A sustained mid-day plateau reflects leisure and lunch trips. Hour of day is therefore "
-           "the dominant predictor of bike demand.")
+    answer("El gráfico de barras revela un patrón de demanda con dos picos claramente asociados a las horas de desplazamiento laboral: las horas pico son las 17:00 (~461 alquileres promedio), 18:00 (~426) y 8:00 (~359), lo que coincide con las horas de entrada y salida del trabajo, siendo la tarde notablemente más alta que la mañana. Por el contrario, las horas de menor demanda son las 4:00 (~6 alquileres), 3:00 (~12) y 5:00 (~20), lo cual es esperable ya que corresponden a la madrugada cuando la mayoría de la población está dormida. También se observa un nivel de demanda moderado sostenido entre las 11:00 y las 15:00 (~200-250), posiblemente por desplazamientos al almuerzo y uso recreativo. Este patrón bimodal confirma que la hora del día es un predictor fundamental de la demanda de bicicletas y que el sistema debe garantizar mayor disponibilidad en las estaciones durante las horas punta de la tarde.")
 
     # Q2 — Boxplot by weather with interactive filters
     st.markdown('<div class="card" style="margin-top:1.2rem"><p class="card-title">Q2 — Rentals by Weather Situation</p></div>', unsafe_allow_html=True)
@@ -684,9 +665,7 @@ elif "Bike" in page:
     apply_layout(fig)
     fig.update_layout(showlegend=False)
     st.plotly_chart(fig, use_container_width=True)
-    answer("Clear weather shows median ~159 rentals with high variability. Mist/Cloudy drops slightly "
-           "to ~133. Light Rain/Snow falls to ~63. Heavy Rain reaches just ~36 — over 75% reduction. "
-           "Rain reduces comfort, visibility and safety, strongly discouraging system use.")
+    answer("El boxplot muestra una relación inversa clara entre la severidad del clima y la cantidad de alquileres de bicicletas. Con clima despejado (Clear) la mediana alcanza 159 alquileres por hora y la caja se extiende ampliamente hasta ~300, indicando alta variabilidad y picos de demanda frecuentes. En condiciones de niebla/nublado (Mist/Cloudy) la mediana baja ligeramente a 133, manteniéndose relativamente cerca del clima despejado, lo que sugiere que condiciones parcialmente adversas no disuaden significativamente a los usuarios. Sin embargo, con lluvia ligera o nieve la mediana cae drásticamente a 63, menos de la mitad que con clima despejado, y con lluvia intensa (Heavy Rain) desciende a apenas 36 alquileres, confirmando que las condiciones meteorológicas severas reducen la demanda en más del 75%. Esto tiene pleno sentido ya que la lluvia genera incomodidad, reduce la visibilidad y aumenta el riesgo de accidentes, desincentivando fuertemente el uso del sistema de bicicletas compartidas.")
 
     # Split
     step(3, "Split the Data")
@@ -735,10 +714,7 @@ elif "Bike" in page:
     st.plotly_chart(actual_vs_predicted(y3te, p3, sel3, "#06b6d4", max_pts=3000),
                     use_container_width=True)
     b3 = res3.iloc[0]
-    answer(f"Random Forest achieves the best result with R² ≈ {b3['R²']} and RMSE ≈ {b3['RMSE']} rentals/hr. "
-           "Gradient Boosting is virtually tied (difference under 0.001 in R²). The Decision Tree lags "
-           "~40% higher RMSE, showing that a single tree fails to generalize across the complex "
-           "interactions between hour, weather and seasonality.")
+    answer(f"De acuerdo con la tabla comparativa, el modelo Random Forest alcanza el menor error con un RMSE de {b3['RMSE']} y un R² de {b3['R²']}, lo que significa que sus predicciones se desvían en promedio ~42 bicicletas del valor real y logra explicar el 94.4% de la variabilidad en la demanda horaria. Gradient Boosting queda prácticamente empatado (diferencia mínima de apenas ~0.35 en RMSE), lo que sugiere que ambos ensambles capturan eficazmente los patrones temporales y climáticos del dataset. El Decision Tree se ubica en tercer lugar, con un error ~40% mayor que los modelos de ensamble, evidenciando que un solo árbol no generaliza tan bien ante la complejidad de interacciones entre hora, clima y estacionalidad. La ventaja de Random Forest se explica porque el dataset de Bike Sharing es grande (~17,000 muestras) y contiene múltiples variables categóricas y continuas, un escenario donde el ensamble paralelo de 150 árboles con muestreo aleatorio captura eficientemente la diversidad de patrones sin sobreajustarse.")
 
     # Feature Importance
     step(6, "Feature Importances")
@@ -749,11 +725,7 @@ elif "Bike" in page:
                                          ["#bae6fd","#06b6d4","#0e7490"])
     st.plotly_chart(fig, use_container_width=True)
     t3c = imp3.head(3)
-    answer(f"Top 3 features: {t3c.index[0]} ({t3c.iloc[0]:.3f}), {t3c.index[1]} ({t3c.iloc[1]:.3f}), "
-           f"{t3c.index[2]} ({t3c.iloc[2]:.3f}). Hour of day alone concentrates over 60% of importance, "
-           "perfectly aligned with the bimodal EDA pattern. Temperature ranks second. Surprisingly, "
-           "weathersit and holiday carry marginal importance — their effect is captured indirectly "
-           "by temperature and hourly patterns.")
+    answer(f"Según el gráfico de importancia del modelo Random Forest, las tres variables más influyentes son: hr (hora del día) con una importancia dominante de 0.61, temp (temperatura) con 0.12 y yr (año) con 0.08. La hora concentra por sí sola más del 60% de la importancia total, lo cual es completamente coherente con el patrón bimodal observado en el EDA, donde las horas 17-18 y 8 mostraban picos de demanda asociados a desplazamientos laborales y la madrugada registraba mínimos. La temperatura como segundo factor también coincide con lo esperado, ya que un clima más cálido incentiva el uso de bicicletas. El año (yr) refleja el crecimiento natural del servicio entre 2011 y 2012 a medida que más usuarios adoptaron el sistema. Es notable que variables como weathersit, weekday y holiday tienen importancia marginal, lo que sugiere que el efecto del clima ya queda parcialmente capturado por temp y que los patrones horarios dominan sobre la distinción entre días laborales y festivos.")
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -770,40 +742,45 @@ elif "Reflection" in page:
     <div class="reflection-wrap">
       <p class="reflection-title">Group Answers — Room 2</p>
 
-      <p class="ref-q">Question 1 — Which algorithm consistently performed best and why?</p>
+      <p class="ref-q">Pregunta 1 — ¿Qué algoritmo rindió mejor de forma consistente? ¿Por qué?</p>
       <p class="ref-a">
-        Throughout the three problems, ensemble models (Random Forest and Gradient Boosting) consistently
-        outperformed the single Decision Tree, alternating first place depending on the dataset:
-        Random Forest led on California Housing (R² 0.8051) and Bike Sharing (R² 0.9444), while
-        Gradient Boosting led on Concrete (R² 0.9055). However, in every case the gap between both
-        ensembles was minimal (under 0.01 in R²), so Random Forest can be considered the most
-        consistently competitive algorithm. Its strength lies in building multiple trees over random
-        subsamples of both observations and features, which significantly reduces variance and overfitting
-        without requiring the sensitive hyperparameter tuning that Gradient Boosting demands.
+        A lo largo de los tres problemas, los modelos de ensamble (Random Forest y Gradient Boosting) superaron
+        consistentemente al Decision Tree individual, alternándose entre sí el primer lugar según el caso:
+        Random Forest ganó en California Housing (R² 0.8051) y Bike Sharing (R² 0.9444), mientras que
+        Gradient Boosting lideró en Concrete (R² 0.9055). Sin embargo, en todos los casos la diferencia entre
+        ambos ensambles fue mínima (menos de 0.01 en R²), por lo que podemos afirmar que Random Forest fue el
+        algoritmo más consistentemente competitivo. Su fortaleza radica en que, al construir múltiples árboles
+        sobre submuestras aleatorias tanto de observaciones como de variables, reduce significativamente la
+        varianza y el sobreajuste que afecta a un árbol individual, logrando predicciones estables y robustas
+        sin requerir un ajuste fino de hiperparámetros tan sensible como el que necesita Gradient Boosting.
       </p>
 
-      <p class="ref-q">Question 2 — When would you choose a Decision Tree over a Random Forest?</p>
+      <p class="ref-q">Pregunta 2 — ¿Cuándo elegirías un Decision Tree en lugar de un Random Forest?</p>
       <p class="ref-a">
-        A Decision Tree is preferable when interpretability and transparency take priority over accuracy —
-        for example in regulated industries like banking or medicine where every decision must be traceable.
-        A single tree lets you visualize each split and follow the complete logical path from inputs to
-        prediction, which is impossible with an ensemble of 100–200 trees. It is also preferable with very
-        small datasets where ensemble overfitting risk increases, or when a quick prototype is needed to
-        validate hypotheses before investing in more complex models. That said, as seen across the three
-        problems, the accuracy cost is considerable: the Decision Tree obtained R² between 0.68 and 0.89,
-        always below the ensembles.
+        Elegiríamos un Decision Tree sobre un Random Forest en situaciones donde la interpretabilidad y la
+        transparencia del modelo sean prioritarias sobre la precisión predictiva. Por ejemplo, en contextos
+        regulados como la banca o la medicina, donde se necesita explicar exactamente por qué el modelo tomó
+        una decisión específica, un árbol de decisión permite visualizar cada bifurcación y trazar la ruta
+        lógica completa desde las variables de entrada hasta la predicción final, algo que resulta imposible
+        con un ensamble de 100-200 árboles. También es preferible cuando se trabaja con datasets muy pequeños
+        donde el riesgo de sobreajuste del ensamble aumenta, o cuando se necesita un modelo rápido como
+        prototipo inicial para validar hipótesis antes de invertir en modelos más complejos. Sin embargo,
+        como vimos en los tres problemas, el costo en precisión es considerable: el Decision Tree obtuvo
+        R² entre 0.68 y 0.89, siempre por debajo de los ensambles.
       </p>
 
-      <p class="ref-q">Question 3 — What did the feature importance plots reveal? Were there surprising variables?</p>
+      <p class="ref-q">Pregunta 3 — ¿Qué revelaron los gráficos de importancia de variables? ¿Hubo alguna variable sorprendente?</p>
       <p class="ref-a">
-        The plots confirmed that in each problem a small number of variables concentrate most predictive
-        power. In California Housing, MedInc dominated; in Concrete, Age and Cement were the primary
-        factors; in Bike Sharing, hr (hour of day) captured over 60% of total importance. The most
-        surprising finding was that in Concrete, Age ranked above Cement itself — counterintuitive without
-        civil engineering knowledge, but explained by the continuous hydration process that hardens concrete
-        over time. Also notable in Bike Sharing was that weathersit and holiday showed marginal importance,
-        despite their intuitive relevance, because their effect is already captured indirectly by temperature
-        and hourly patterns.
+        Los gráficos de feature importance revelaron que en cada problema unas pocas variables concentran
+        la mayor parte del poder predictivo: en California Housing, MedInc (ingreso mediano) dominó con
+        diferencia; en Concrete, Age (edad del curado) y Cement fueron los factores principales; y en Bike
+        Sharing, hr (hora del día) acaparó más del 60% de la importancia total. Como hallazgo sorprendente,
+        destaca que en Concrete la variable Age resultó ser más importante que el propio Cement, algo que
+        podría no ser intuitivo para alguien sin conocimiento de ingeniería civil, pero que se explica por
+        el proceso continuo de hidratación que fortalece el concreto con el tiempo. También resulta llamativo
+        que en Bike Sharing variables como weathersit y holiday tuvieron importancia marginal, cuando
+        intuitivamente uno esperaría que el clima y los festivos fueran determinantes, pero su efecto queda
+        indirectamente capturado por temp y hr respectivamente.
       </p>
     </div>
     """, unsafe_allow_html=True)
