@@ -163,10 +163,138 @@ with st.sidebar:
 #  HERO
 # ─────────────────────────────────────────────────────────────
 st.markdown("""
+<style>
+.hero { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
+.hero-text { flex:1 1 auto; }
+.hero-illustration {
+  flex:0 0 360px; max-width:360px;
+  filter: drop-shadow(0 4px 18px rgba(99,102,241,0.13));
+}
+@media (max-width:860px) {
+  .hero { flex-direction:column; }
+  .hero-illustration { max-width:100%; flex:0 0 auto; }
+}
+</style>
+
 <div class="hero">
-  <div class="hero-eyebrow">In-Class Activity</div>
-  <h1 class="hero-title">Regression with<br>Tree-Based Models</h1>
-  <p class="hero-sub">Predicting real-world outcomes using Decision Trees, Random Forests and Gradient Boosting</p>
+  <div class="hero-text">
+    <div class="hero-eyebrow">In-Class Activity</div>
+    <h1 class="hero-title">Regression with<br>Tree-Based Models</h1>
+    <p class="hero-sub">Predicting real-world outcomes using Decision Trees,<br>Random Forests and Gradient Boosting</p>
+  </div>
+
+  <div class="hero-illustration">
+    <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <linearGradient id="gRoot" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#6366f1"/>
+          <stop offset="100%" stop-color="#8b5cf6"/>
+        </linearGradient>
+        <linearGradient id="gMid" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#8b5cf6"/>
+          <stop offset="100%" stop-color="#a78bfa"/>
+        </linearGradient>
+        <linearGradient id="gLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a78bfa"/>
+          <stop offset="100%" stop-color="#c4b5fd"/>
+        </linearGradient>
+        <linearGradient id="gChart" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#eef1ff"/>
+          <stop offset="100%" stop-color="#f0ebff"/>
+        </linearGradient>
+        <filter id="fshadow">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#6366f1" flood-opacity="0.18"/>
+        </filter>
+      </defs>
+
+      <circle cx="370" cy="18" r="28" fill="#6366f1" opacity="0.06"/>
+      <circle cx="392" cy="45" r="16" fill="#8b5cf6" opacity="0.07"/>
+      <circle cx="355" cy="52" r="10" fill="#a78bfa" opacity="0.08"/>
+      <circle cx="10"  cy="235" r="20" fill="#c4b5fd" opacity="0.09"/>
+      <circle cx="30"  cy="250" r="12" fill="#8b5cf6" opacity="0.06"/>
+
+      <rect x="228" y="90" width="160" height="148" rx="13"
+            fill="url(#gChart)" stroke="#d0d8f0" stroke-width="1.2"/>
+      <line x1="246" y1="220" x2="376" y2="220" stroke="#c7d2fe" stroke-width="1.2"/>
+      <line x1="246" y1="220" x2="246" y2="102" stroke="#c7d2fe" stroke-width="1.2"/>
+      <line x1="250" y1="214" x2="372" y2="108"
+            stroke="#6366f1" stroke-width="2" stroke-dasharray="5,3" opacity="0.65"/>
+      <circle cx="260" cy="208" r="4"   fill="#6366f1" opacity="0.8"/>
+      <circle cx="274" cy="199" r="3.5" fill="#8b5cf6" opacity="0.8"/>
+      <circle cx="288" cy="191" r="4.5" fill="#6366f1" opacity="0.7"/>
+      <circle cx="302" cy="183" r="3"   fill="#a78bfa" opacity="0.85"/>
+      <circle cx="315" cy="174" r="4"   fill="#6366f1" opacity="0.75"/>
+      <circle cx="328" cy="165" r="3.5" fill="#8b5cf6" opacity="0.8"/>
+      <circle cx="341" cy="156" r="4.5" fill="#6366f1" opacity="0.65"/>
+      <circle cx="355" cy="147" r="3"   fill="#a78bfa" opacity="0.85"/>
+      <circle cx="366" cy="138" r="4"   fill="#8b5cf6" opacity="0.75"/>
+      <circle cx="280" cy="177" r="3"   fill="#ec4899" opacity="0.55"/>
+      <circle cx="312" cy="196" r="3.5" fill="#ec4899" opacity="0.5"/>
+      <circle cx="348" cy="170" r="3"   fill="#ec4899" opacity="0.55"/>
+      <circle cx="362" cy="153" r="3"   fill="#ec4899" opacity="0.5"/>
+      <text x="305" y="236" text-anchor="middle" font-size="8.5"
+            fill="#6366f1" font-family="Nunito,sans-serif" font-weight="600" opacity="0.85">
+        Predicted vs Actual
+      </text>
+
+      <line x1="116" y1="50" x2="58"  y2="110" stroke="#a78bfa" stroke-width="2"   opacity="0.55"/>
+      <line x1="116" y1="50" x2="174" y2="110" stroke="#a78bfa" stroke-width="2"   opacity="0.55"/>
+      <line x1="58"  y1="127" x2="28" y2="183" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
+      <line x1="58"  y1="127" x2="88" y2="183" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
+      <line x1="174" y1="127" x2="148" y2="183" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
+      <line x1="174" y1="127" x2="202" y2="183" stroke="#c4b5fd" stroke-width="1.5" opacity="0.5"/>
+
+      <circle cx="116" cy="35" r="23" fill="url(#gRoot)" filter="url(#fshadow)"/>
+      <text x="116" y="31" text-anchor="middle" font-size="8"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">MedInc</text>
+      <text x="116" y="43" text-anchor="middle" font-size="7.5"
+            fill="#e0e7ff" font-family="Nunito,sans-serif">&lt; 3.5 ?</text>
+
+      <circle cx="58" cy="113" r="19" fill="url(#gMid)" filter="url(#fshadow)"/>
+      <text x="58" y="109" text-anchor="middle" font-size="8"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">Lat</text>
+      <text x="58" y="120" text-anchor="middle" font-size="7.5"
+            fill="#e0e7ff" font-family="Nunito,sans-serif">&lt; 34?</text>
+
+      <circle cx="174" cy="113" r="19" fill="url(#gMid)" filter="url(#fshadow)"/>
+      <text x="174" y="109" text-anchor="middle" font-size="8"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">Age</text>
+      <text x="174" y="120" text-anchor="middle" font-size="7.5"
+            fill="#e0e7ff" font-family="Nunito,sans-serif">&lt; 25?</text>
+
+      <text x="78"  y="76" text-anchor="middle" font-size="7.5"
+            fill="#6366f1" font-family="Nunito,sans-serif" font-weight="700">Yes</text>
+      <text x="156" y="76" text-anchor="middle" font-size="7.5"
+            fill="#8b5cf6" font-family="Nunito,sans-serif" font-weight="700">No</text>
+
+      <rect x="12"  y="175" width="34" height="22" rx="7" fill="url(#gLeaf)" filter="url(#fshadow)"/>
+      <text x="29"  y="190" text-anchor="middle" font-size="8.5"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">1.23</text>
+
+      <rect x="72"  y="175" width="34" height="22" rx="7" fill="url(#gLeaf)" filter="url(#fshadow)"/>
+      <text x="89"  y="190" text-anchor="middle" font-size="8.5"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">2.08</text>
+
+      <rect x="132" y="175" width="34" height="22" rx="7" fill="url(#gLeaf)" filter="url(#fshadow)"/>
+      <text x="149" y="190" text-anchor="middle" font-size="8.5"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">3.41</text>
+
+      <rect x="186" y="175" width="34" height="22" rx="7" fill="url(#gLeaf)" filter="url(#fshadow)"/>
+      <text x="203" y="190" text-anchor="middle" font-size="8.5"
+            fill="white" font-family="Nunito,sans-serif" font-weight="700">4.87</text>
+
+      <rect x="8" y="210" width="210" height="36" rx="9"
+            fill="white" stroke="#e0e7ff" stroke-width="1.2"/>
+      <text x="17" y="223" font-size="7.5"
+            fill="#6366f1" font-family="Nunito,sans-serif" font-weight="700" opacity="0.9">
+        Feature Importance
+      </text>
+      <rect x="17" y="227" width="88" height="6" rx="3" fill="#6366f1" opacity="0.82"/>
+      <text x="109" y="233" font-size="7" fill="#475569" font-family="Nunito,sans-serif">MedInc 0.62</text>
+      <rect x="17" y="236" width="50" height="6" rx="3" fill="#8b5cf6" opacity="0.72"/>
+      <text x="71"  y="242" font-size="7" fill="#475569" font-family="Nunito,sans-serif">Latitude 0.14</text>
+    </svg>
+  </div>
 </div>
 """, unsafe_allow_html=True)
 
