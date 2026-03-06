@@ -36,30 +36,33 @@ html, body, [class*="css"] { font-family: 'Nunito', sans-serif; }
 }
 
 [data-testid="stSidebar"] {
-  background: linear-gradient(180deg, #0f172a 0%, #1e2d5a 55%, #3b2f6e 100%);
+  background: linear-gradient(180deg, #f4f6ff 0%, #ede9fb 55%, #f0f4ff 100%);
+  border-right: 1px solid #dde3f5;
 }
-[data-testid="stSidebar"] * { color: #dde6f5 !important; }
-[data-testid="stSidebar"] hr { border-color: rgba(255,255,255,0.1) !important; }
+[data-testid="stSidebar"] * { color: #1e2d5a !important; }
+[data-testid="stSidebar"] hr { border-color: #d0d8f0 !important; }
 
 .hero {
-  background: linear-gradient(135deg, #0f172a 0%, #1e2d5a 45%, #3b2f6e 100%);
+  background: linear-gradient(135deg, #eef1ff 0%, #f0ebff 50%, #e8f0ff 100%);
   border-radius: 22px; padding: 3rem 3.5rem 2.5rem;
-  margin-bottom: 2.5rem; box-shadow: 0 24px 64px rgba(15,23,42,0.22);
+  margin-bottom: 2.5rem;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.12), 0 2px 8px rgba(139,92,246,0.08);
+  border: 1.5px solid rgba(99,102,241,0.15);
   position: relative; overflow: hidden;
 }
 .hero::before {
   content:''; position:absolute; top:-80px; right:-80px;
   width:280px; height:280px; border-radius:50%;
-  background: radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
 }
 .hero-eyebrow {
-  display:inline-block; background:rgba(139,92,246,0.25);
-  border:1px solid rgba(139,92,246,0.4); color:#c4b5fd;
+  display:inline-block; background:rgba(99,102,241,0.1);
+  border:1px solid rgba(99,102,241,0.3); color:#6366f1;
   font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase;
-  padding:0.28rem 0.9rem; border-radius:30px; margin-bottom:1rem;
+  padding:0.28rem 0.9rem; border-radius:30px; margin-bottom:1rem; font-weight:600;
 }
-.hero-title { font-family:'Playfair Display',serif; font-size:2.6rem; color:#fff; margin:0 0 0.6rem; line-height:1.15; }
-.hero-sub   { font-size:1rem; color:#94a3c8; font-weight:300; margin:0; }
+.hero-title { font-family:'Playfair Display',serif; font-size:2.6rem; color:#0f172a; margin:0 0 0.6rem; line-height:1.15; }
+.hero-sub   { font-size:1rem; color:#475569; font-weight:300; margin:0; }
 
 .sec-head   { display:flex; align-items:center; gap:1rem; margin:2.5rem 0 1.4rem; }
 .sec-pill   {
@@ -102,16 +105,17 @@ html, body, [class*="css"] { font-family: 'Nunito', sans-serif; }
 }
 
 .reflection-wrap {
-  background:linear-gradient(135deg,#0f172a,#1e2d5a,#3b2f6e);
-  border-radius:20px; padding:2.2rem 2.8rem; margin-top:1rem;
-  box-shadow:0 16px 48px rgba(15,23,42,0.22);
+  background: #ffffff;
+  border-radius: 20px; padding: 2.2rem 2.8rem; margin-top: 1rem;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.1);
+  border: 1.5px solid rgba(99,102,241,0.15);
 }
-.reflection-title { font-family:'Playfair Display',serif; font-size:1.6rem; color:#fff; margin:0 0 1.8rem; }
-.ref-q { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:#7c8ec7; margin-bottom:0.4rem; }
-.ref-a { font-size:0.91rem; color:#c5d0e8; line-height:1.8; margin-bottom:1.6rem; }
+.reflection-title { font-family:'Playfair Display',serif; font-size:1.6rem; color:#0f172a; margin:0 0 1.8rem; }
+.ref-q { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:#6366f1; margin-bottom:0.4rem; font-weight:600; }
+.ref-a { font-size:0.91rem; color:#334155; line-height:1.8; margin-bottom:1.6rem; padding-left:1rem; border-left: 3px solid #ede9fb; }
 
-.sb-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.15em; color:#7c8ec7 !important; padding-left:0.2rem; margin-bottom:0.4rem; }
-.sb-item  { font-size:0.82rem; color:#c5d0e8 !important; margin:0.22rem 0; padding-left:0.2rem; }
+.sb-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.15em; color:#6366f1 !important; padding-left:0.2rem; margin-bottom:0.4rem; font-weight:600; }
+.sb-item  { font-size:0.82rem; color:#334155 !important; margin:0.22rem 0; padding-left:0.2rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -145,12 +149,12 @@ with st.sidebar:
         "Final Reflection",
     ], label_visibility="collapsed")
     st.markdown("</div>", unsafe_allow_html=True)
-    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown('<hr style="border-color:#d0d8f0; margin:0.8rem 0">', unsafe_allow_html=True)
     st.markdown('<p class="sb-label">Group — Room 2</p>', unsafe_allow_html=True)
     for m in ["Andrea L. Rodriguez","Melanie P. Perez","Leiry L. Mares",
               "Donnys D. Torres","Maria A. Perez","Rosa M. Mora"]:
-        st.markdown(f'<p class="sb-item">— {m}</p>', unsafe_allow_html=True)
-    st.markdown("<hr>", unsafe_allow_html=True)
+        st.markdown(f'<p class="sb-item">• {m}</p>', unsafe_allow_html=True)
+    st.markdown('<hr style="border-color:#d0d8f0; margin:0.8rem 0">', unsafe_allow_html=True)
     st.markdown('<p class="sb-label">Models</p>', unsafe_allow_html=True)
     for m in ["Decision Tree","Random Forest","Gradient Boosting"]:
         st.markdown(f'<p class="sb-item">• {m}</p>', unsafe_allow_html=True)
